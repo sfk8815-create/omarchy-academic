@@ -25,7 +25,7 @@ cd omarchy-academic
    - 中文应用（微信 / 钉钉 / 飞书 / WPS，AUR）
    - 学术软件栈（Zotero / Obsidian / Zettlr / Xournal++ / OCR / Pandoc / TeX Live）
    - HiDPI 缩放（4K 屏）
-   - MacBook 独显断电、Apple 键盘 fn 键
+   - Apple 键盘 fn 键
    - 代理环境变量模板
 
 ## 常用参数

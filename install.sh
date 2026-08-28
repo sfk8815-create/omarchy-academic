@@ -21,7 +21,6 @@ DO_HELPERS=1
 WITH_APPS=0
 WITH_ACADEMIC=0
 WITH_HIDPI=0
-WITH_MACBOOK=0
 WITH_HID_APPLE=0
 WITH_PROXY=0
 ASSUME_YES=0
@@ -46,7 +45,6 @@ while [[ $# -gt 0 ]]; do
     --with-apps)     WITH_APPS=1 ;;
     --with-academic) WITH_ACADEMIC=1 ;;
     --with-hidpi)    WITH_HIDPI=1 ;;
-    --with-macbook)  WITH_MACBOOK=1 ;;
     --with-hid-apple) WITH_HID_APPLE=1 ;;
     --with-proxy)    WITH_PROXY=1 ;;
     --timezone)      TIMEZONE="$2"; shift ;;
@@ -217,14 +215,6 @@ if (( WITH_HIDPI )); then
 elif (( ! ASSUME_YES )) && ask "安装 HiDPI 缩放模块？（4K 屏推荐）" "n"; then
   section "硬件模块：HiDPI 缩放"
   run "$REPO_DIR/hardware/hidpi/install.sh"
-fi
-
-if (( WITH_MACBOOK )); then
-  section "硬件模块：MacBook 独显断电"
-  run "$REPO_DIR/hardware/macbook-gpu-off/install.sh"
-elif (( ! ASSUME_YES )) && ask "安装 MacBook 独显断电模块？（仅双显卡 MacBook）" "n"; then
-  section "硬件模块：MacBook 独显断电"
-  run "$REPO_DIR/hardware/macbook-gpu-off/install.sh"
 fi
 
 if (( WITH_HID_APPLE )); then

@@ -25,27 +25,6 @@ bad()  { printf '  \033[1;31mFAIL\033[0m  %s\n' "$1"; fail=$((fail + 1)); }
 note() { printf '  \033[1;33mWARN\033[0m  %s\n' "$1"; warn=$((warn + 1)); }
 section() { printf '\n\033[1;36m== %s ==\033[0m\n' "$1"; }
 
-section "双显卡（仅 MacBook 等 vgaswitcheroo 机型）"
-if [[ -f /sys/kernel/debug/vgaswitcheroo/switch ]]; then
-	if (( ${#SUDO_CMD[@]} )); then
-		if "${SUDO_CMD[@]}" cat /sys/kernel/debug/vgaswitcheroo/switch 2>/dev/null | rg -q 'DIS:.*:Off'; then
-			ok "独显已断电 (vgaswitcheroo DIS Off)"
-		else
-			bad "独显仍在供电 (vgaswitcheroo DIS 非 Off)"
-		fi
-		svc=$("${SUDO_CMD[@]}" systemctl is-enabled nvidia-gpu-off.service 2>/dev/null)
-		if [[ "$svc" == "enabled" ]]; then
-			ok "nvidia-gpu-off.service 开机自启"
-		else
-			bad "nvidia-gpu-off.service 未启用 ($svc)"
-		fi
-	else
-		note "跳过独显检查 (需要 root)"
-	fi
-else
-	note "非 vgaswitcheroo 机型，跳过"
-fi
-
 section "服务裁剪"
 running=$(systemctl list-units --type=service --state=running --no-pager 2>/dev/null | rg -c '\.service' || true)
 if (( running <= 21 )); then

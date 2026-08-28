@@ -5,7 +5,6 @@
 | 模块 | 适用设备 | 说明 |
 | --- | --- | --- |
 | `hidpi/` | 4K / 高分屏 | Hyprland UI 缩放与 GDK_SCALE（安装时输入数值） |
-| `macbook-gpu-off/` | Intel + NVIDIA 双显卡 MacBook | 开机给独显断电省电 |
 | `hid_apple/` | Apple 键盘 | fn 键默认触发媒体键（fnmode=2） |
 
 全部模块安装前都会备份被覆盖的文件。

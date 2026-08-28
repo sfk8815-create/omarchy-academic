@@ -10,7 +10,7 @@ Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），
 - 四个终端（alacritty / foot / kitty / ghostty）的中文渲染，foot 中文字号单独放大 1.2 倍
 - 学术软件栈：Zotero、Obsidian、Zettlr、Xournal++、LibreOffice/WPS、Tesseract 中文 OCR、Pandoc、TeX Live
 - 中文办公应用（可选）：微信、钉钉、飞书、WPS Office
-- 硬件模块（可选）：MacBook 独显断电、Apple 键盘 fn 键、HiDPI 缩放
+- 硬件模块（可选）：Apple 键盘 fn 键、HiDPI 缩放
 - 中文 sudo 密码弹窗、系统健康检查等自写工具
 - 一键安装/卸载、长期维护（`sync.sh` + GitHub Actions CI）
 
@@ -52,7 +52,7 @@ omarchy-academic/
 ├── rime/                    # rime-ice 补丁（不包含个人词库）
 ├── scripts/                 # 区域设置、rime 安装、sudo 弹窗、健康检查
 ├── templates/               # 代理等环境变量模板
-├── hardware/                # 可选硬件模块（MacBook / HiDPI）
+├── hardware/                # 可选硬件模块（Apple 键盘 / HiDPI）
 └── docs/                    # 安装与 FAQ
 ```
 

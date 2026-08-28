@@ -67,9 +67,9 @@ Zotero 负责文献管理；配合本仓库的学术软件栈，可用 Tesseract
 
 ## 系统
 
-### 不是 MacBook 能装吗
+### 不是 MacBook / 没有 Apple 键盘能装吗
 
-可以。`install.sh` 默认只装核心中文化内容；MacBook 独显断电和 Apple 键盘模块在询问时选“n”即可。
+可以。`install.sh` 默认只装核心中文化内容；Apple 键盘模块在询问时选“n”即可。
 
 ### 4K 屏字太小 / 太大
 
