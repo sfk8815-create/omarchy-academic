@@ -27,6 +27,9 @@ cd omarchy-academic
    - HiDPI 缩放（4K 屏）
    - Apple 键盘 fn 键
    - 代理环境变量模板
+   - Omarchy 界面简体中文化（第三方 MIT 项目）
+   - 状态栏农历日历（第三方 MIT 项目）
+   - 国内镜像 + archlinuxcn 社区仓库
 
 ## 常用参数
 
@@ -34,9 +37,16 @@ cd omarchy-academic
 ./install.sh --dry-run          # 预览将要执行的命令
 ./install.sh --with-academic    # 直接安装学术软件栈
 ./install.sh --with-apps        # 直接安装中文应用
+./install.sh --with-zh-ui       # 界面简体中文化（QueedWen/omarchy-zh-cn, MIT）
+./install.sh --with-lunar       # 农历日历（garyliu.lunar-calendar, MIT）
+./install.sh --with-cn-mirrors  # 国内镜像 + archlinuxcn
 ./install.sh --no-locale        # 跳过系统区域设置
 ./install.sh --yes              # 全部可选模块（不含硬件）默认安装
 ```
+
+> 注：界面汉化、农历日历、国内镜像属于“需要显式确认”的模块，`--yes` 不会自动安装。
+
+社区模块来源、许可证与卸载方式见 [resources.md](resources.md)。
 
 ## 安装后
 

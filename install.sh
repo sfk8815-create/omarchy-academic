@@ -5,6 +5,7 @@
 #   ./install.sh                    交互式安装（推荐）
 #   ./install.sh --yes              全部可选模块（除硬件模块外）
 #   ./install.sh --with-apps --with-academic
+#   ./install.sh --with-zh-ui --with-lunar --with-cn-mirrors
 #   ./install.sh --no-packages --no-locale
 #   ./install.sh --dry-run          只打印将要执行的步骤
 # 详见 docs/install.md
@@ -23,6 +24,9 @@ WITH_ACADEMIC=0
 WITH_HIDPI=0
 WITH_HID_APPLE=0
 WITH_PROXY=0
+WITH_ZH_UI=0
+WITH_LUNAR=0
+WITH_CN_MIRRORS=0
 ASSUME_YES=0
 DRY_RUN=0
 TIMEZONE="Asia/Shanghai"
@@ -32,7 +36,7 @@ warn() { printf '\033[1;33m[警告]\033[0m %s\n' "$*"; }
 die()  { printf '\033[1;31m[错误]\033[0m %s\n' "$*" >&2; exit 1; }
 
 usage() {
-  sed -n '2,15p' "$0"
+  sed -n '2,18p' "$0"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -47,6 +51,9 @@ while [[ $# -gt 0 ]]; do
     --with-hidpi)    WITH_HIDPI=1 ;;
     --with-hid-apple) WITH_HID_APPLE=1 ;;
     --with-proxy)    WITH_PROXY=1 ;;
+    --with-zh-ui)    WITH_ZH_UI=1 ;;
+    --with-lunar)    WITH_LUNAR=1 ;;
+    --with-cn-mirrors) WITH_CN_MIRRORS=1 ;;
     --timezone)      TIMEZONE="$2"; shift ;;
     --yes|-y)        ASSUME_YES=1 ;;
     --dry-run)       DRY_RUN=1 ;;
@@ -223,6 +230,22 @@ if (( WITH_HID_APPLE )); then
 elif (( ! ASSUME_YES )) && ask "安装 Apple 键盘 fn 键模块？（仅 Apple 键盘）" "n"; then
   section "硬件模块：Apple 键盘 fn 键"
   run "$REPO_DIR/hardware/hid_apple/install.sh"
+fi
+
+# ---------- 6b. 第三方社区模块（来源与许可见 docs/resources.md） ----------
+if (( WITH_ZH_UI )) || { (( ! ASSUME_YES )) && ask "安装 Omarchy 界面简体中文化？（第三方 MIT 项目）" "n"; }; then
+  section "可选模块：界面汉化（QueedWen/omarchy-zh-cn, MIT）"
+  run "$REPO_DIR/modules/zh-ui/install.sh"
+fi
+
+if (( WITH_LUNAR )) || { (( ! ASSUME_YES )) && ask "安装中文农历日历？（替换状态栏时钟，第三方 MIT 项目）" "n"; }; then
+  section "可选模块：农历日历（garyliu.lunar-calendar, MIT）"
+  run "$REPO_DIR/modules/lunar-calendar/install.sh"
+fi
+
+if (( WITH_CN_MIRRORS )) || { (( ! ASSUME_YES )) && ask "配置国内镜像与 archlinuxcn 社区仓库？（需要 sudo）" "n"; }; then
+  section "可选模块：国内镜像 + archlinuxcn"
+  run sudo "$REPO_DIR/scripts/setup-cn-mirrors.sh"
 fi
 
 # ---------- 7. 代理模板（可选） ----------

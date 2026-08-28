@@ -11,6 +11,7 @@ A customization layer on top of [Omarchy](https://omarchy.org/) 4.0.1 that turns
 - Academic stack: Zotero, Obsidian, Zettlr, Xournal++, LibreOffice/WPS, Tesseract Chinese OCR, Pandoc, TeX Live
 - Optional Chinese apps: WeChat, DingTalk, Feishu, WPS Office
 - Optional hardware modules: Apple keyboard, HiDPI
+- Optional community modules: Chinese UI localization, lunar calendar, China mirrors + archlinuxcn
 - One-command install/uninstall, `sync.sh`, and CI checks
 
 ## Quick start
@@ -21,6 +22,14 @@ On a fresh Omarchy 4.0.1 system:
 git clone https://github.com/sfk8815-create/omarchy-academic.git
 cd omarchy-academic
 ./install.sh
+```
+
+Community modules (sources and licenses in [docs/resources.md](docs/resources.md)):
+
+```bash
+./install.sh --with-zh-ui       # Chinese UI localization for Omarchy (MIT)
+./install.sh --with-lunar       # Chinese lunar calendar bar widget (MIT)
+./install.sh --with-cn-mirrors  # China mirrors + archlinuxcn repository
 ```
 
 See [docs/install.md](docs/install.md) (Chinese) for details. The repo contains no personal data or secrets.

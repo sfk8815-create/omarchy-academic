@@ -17,11 +17,11 @@ jobs:
 
       - name: bash syntax
         run: |
-          bash -n install.sh uninstall.sh sync.sh scripts/*.sh hardware/*/install.sh
+          bash -n install.sh uninstall.sh sync.sh scripts/*.sh hardware/*/install.sh modules/*/install.sh
 
       - name: shellcheck
         run: |
-          shellcheck install.sh uninstall.sh sync.sh scripts/*.sh hardware/*/install.sh
+          shellcheck install.sh uninstall.sh sync.sh scripts/*.sh hardware/*/install.sh modules/*/install.sh
 
       - name: JSON validation
         run: |

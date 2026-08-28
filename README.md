@@ -11,6 +11,7 @@ Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），
 - 学术软件栈：Zotero、Obsidian、Zettlr、Xournal++、LibreOffice/WPS、Tesseract 中文 OCR、Pandoc、TeX Live
 - 中文办公应用（可选）：微信、钉钉、飞书、WPS Office
 - 硬件模块（可选）：Apple 键盘 fn 键、HiDPI 缩放
+- 社区模块（可选）：Omarchy 界面简体中文化、状态栏农历日历、国内镜像 + archlinuxcn 仓库
 - 中文 sudo 密码弹窗、系统健康检查等自写工具
 - 一键安装/卸载、长期维护（`sync.sh` + GitHub Actions CI）
 
@@ -35,6 +36,14 @@ cd omarchy-academic
 
 重新登录后即可使用。详细说明见 [docs/install.md](docs/install.md)，常见问题见 [docs/faq.md](docs/faq.md)。
 
+可选的社区模块（来源与许可证见 [docs/resources.md](docs/resources.md)）：
+
+```bash
+./install.sh --with-zh-ui       # Omarchy 界面简体中文化（MIT）
+./install.sh --with-lunar       # 状态栏农历日历（MIT）
+./install.sh --with-cn-mirrors  # 国内镜像 + archlinuxcn 社区仓库
+```
+
 ## 目录结构
 
 ```
@@ -53,12 +62,18 @@ omarchy-academic/
 ├── scripts/                 # 区域设置、rime 安装、sudo 弹窗、健康检查
 ├── templates/               # 代理等环境变量模板
 ├── hardware/                # 可选硬件模块（Apple 键盘 / HiDPI）
+├── modules/                 # 第三方社区模块（界面汉化 / 农历日历）
 └── docs/                    # 安装与 FAQ
 ```
 
 ## 与 Omarchy 的关系
 
 本仓库是 Omarchy 之上的**增量覆盖层**：只安装/修改必要文件，尊重 Omarchy 自身的升级与默认配置（`omarchy refresh` 可随时还原）。我们不是 Omarchy 官方项目，也不修改 `/usr/share/omarchy/` 下的任何文件。
+
+## 同类项目与吸纳
+
+- [OmarchyCN](https://git.zacharyzhang.com/ZacharyZhang-NY/omarchycn)：面向中国**开发者**的 Omarchy 下游发行版（镜像管理、AI Hub、国内应用中心）。学研版面向**学术人群**，专注中文环境与学术软件栈，两者定位互补、可叠加共存。
+- 学研版吸纳的社区项目（界面汉化、农历日历、archlinuxcn 镜像等）均为可选模块，来源与许可证见 [docs/resources.md](docs/resources.md)。
 
 ## 隐私说明
 

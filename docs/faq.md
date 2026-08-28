@@ -67,6 +67,20 @@ Zotero 负责文献管理；配合本仓库的学术软件栈，可用 Tesseract
 
 ## 系统
 
+### 界面汉化/农历日历/国内镜像怎么装
+
+```bash
+./install.sh --with-zh-ui       # 界面简体中文化（汉化菜单、面板、天气、快捷键）
+./install.sh --with-lunar       # 状态栏时钟换成农历日历
+./install.sh --with-cn-mirrors  # 清华镜像 + archlinuxcn 仓库
+```
+
+三者均来自 MIT 社区项目或公开镜像配置，来源见 docs/resources.md；卸载方式见 modules/ 下对应 README。
+
+### 装了 archlinuxcn 之后 AUR 助手要不要改
+
+不用。archlinuxcn 是独立仓库，与 AUR（yay/paru）互不冲突；`archlinuxcn-keyring` 会自动安装以校验包签名。
+
 ### 不是 MacBook / 没有 Apple 键盘能装吗
 
 可以。`install.sh` 默认只装核心中文化内容；Apple 键盘模块在询问时选“n”即可。
