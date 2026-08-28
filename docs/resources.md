@@ -49,7 +49,7 @@
 | [paperless-ngx/paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) | 26k+ | GPL-3.0 | 论文/文档数字化归档与全文检索 | 文档记录（体量较大，后续可做模块） |
 | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) | 1.5k | 见仓库 LICENSE | 面向学术写作的 AI 多智能体审稿/复现模板 | 文档记录 |
 | [sfk8815-create/sovena](https://github.com/sfk8815-create/sovena) | 5 | MIT | Zotero → 语义文献包 → 向量检索 + MCP（作者自有） | **默认集成** `modules/sovena/` |
-| [sfk8815-create/mcp-cockpit](https://github.com/sfk8815-create/mcp-cockpit) | 1 | 见仓库 LICENSE | 统一 MCP 网关管理台 + 自愈看门狗（作者自有） | **默认集成** `modules/mcp-cockpit/` |
+| [sfk8815-create/mcp-cockpit](https://github.com/sfk8815-create/mcp-cockpit) | 1 | MIT | 统一 MCP 网关管理台 + 自愈看门狗（作者自有） | **默认集成** `modules/mcp-cockpit/` |
 
 ### 学术场景选型建议
 

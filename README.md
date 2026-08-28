@@ -17,6 +17,14 @@ Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），
 - 中文 sudo 密码弹窗、系统健康检查等自写工具
 - 一键安装/卸载、长期维护（`sync.sh` + GitHub Actions CI）
 
+## 界面预览
+
+（截图来自真实 Omarchy 4.0.1 桌面，已启用界面汉化与农历日历）
+
+| 桌面与状态栏（农历日历） | 终端中文渲染 |
+| --- | --- |
+| ![桌面](docs/images/desktop.png) | ![终端中文](docs/images/terminal-cjk.png) |
+
 ## 快速开始
 
 在**全新 Omarchy 4.0.1** 上，以普通用户执行：
@@ -92,7 +100,7 @@ omarchy-academic/
 ## 许可
 
 - 项目本体与脚本：MIT（见 [LICENSE](LICENSE)）
-- `rime/`：基于 [rime-ice](https://github.com/Dvel/rime-ice)（GPL-3.0）修改，见 [rime/README.md](rime/README.md)
+- `rime/`：基于 [rime-ice](https://github.com/iDvel/rime-ice)（GPL-3.0）修改，见 [rime/README.md](rime/README.md)
 - 微信/钉钉/飞书/WPS/微软字体等闭源内容：仅提供安装引用，版权归原厂商，请自行确认使用许可
 
 ## 维护

@@ -45,6 +45,7 @@ cd omarchy-academic
 ./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop
 ./install.sh --no-sovena        # 跳过 sovena（默认必装）
 ./install.sh --no-mcp-cockpit   # 跳过 MCP Cockpit（默认必装）
+./install.sh --core-only        # 只装核心中文化（locale/输入法/字体/终端/工具）
 ./install.sh --no-locale        # 跳过系统区域设置
 ./install.sh --yes              # 全部可选模块（不含硬件）默认安装
 ```

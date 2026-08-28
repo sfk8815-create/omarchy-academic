@@ -8,6 +8,7 @@
 #   ./install.sh --with-zh-ui --with-lunar --with-cn-mirrors
 #   ./install.sh --with-desktop
 #   ./install.sh --no-sovena --no-mcp-cockpit     # 跳过默认必装的文献流/MCP 网关
+#   ./install.sh --core-only                      # 只装核心中文化（含 Rime/终端/字体）
 #   ./install.sh --no-packages --no-locale
 #   ./install.sh --dry-run          只打印将要执行的步骤
 # 详见 docs/install.md
@@ -32,6 +33,7 @@ WITH_CN_MIRRORS=0
 WITH_DESKTOP=0
 DO_SOVENA=1
 DO_MCP=1
+CORE_ONLY=0
 ASSUME_YES=0
 DRY_RUN=0
 TIMEZONE="Asia/Shanghai"
@@ -70,6 +72,7 @@ while [[ $# -gt 0 ]]; do
     --with-desktop)  WITH_DESKTOP=1 ;;
     --no-sovena)     DO_SOVENA=0 ;;
     --no-mcp-cockpit) DO_MCP=0 ;;
+    --core-only)     CORE_ONLY=1 ;;
     --timezone)      TIMEZONE="$2"; shift ;;
     --yes|-y)        ASSUME_YES=1 ;;
     --dry-run)       DRY_RUN=1 ;;
@@ -78,6 +81,21 @@ while [[ $# -gt 0 ]]; do
   esac
   shift
 done
+
+if (( CORE_ONLY )); then
+  WITH_APPS=0
+  WITH_ACADEMIC=0
+  WITH_HIDPI=0
+  WITH_HID_APPLE=0
+  WITH_PROXY=0
+  WITH_ZH_UI=0
+  WITH_LUNAR=0
+  WITH_CN_MIRRORS=0
+  WITH_DESKTOP=0
+  DO_SOVENA=0
+  DO_MCP=0
+  ASSUME_YES=0
+fi
 
 BACKUP_DIR="$BACKUP_ROOT-$(date +%Y%m%d-%H%M%S)"
 PKGS=()
@@ -142,11 +160,13 @@ if (( DO_PACKAGES )); then
   section "核心软件包"
 
   # 交互式询问可选软件包（--yes 时自动接受）
-  if (( ! WITH_APPS )) && ask "安装中文应用（微信/钉钉/飞书/WPS，AUR）？" "n"; then
-    WITH_APPS=1
-  fi
-  if (( ! WITH_ACADEMIC )) && ask "安装学术软件栈（Zotero/Obsidian/Xournal++/OCR/Pandoc/TeX Live）？" "y"; then
-    WITH_ACADEMIC=1
+  if (( ! CORE_ONLY )); then
+    if (( ! WITH_APPS )) && ask "安装中文应用（微信/钉钉/飞书/WPS，AUR）？" "n"; then
+      WITH_APPS=1
+    fi
+    if (( ! WITH_ACADEMIC )) && ask "安装学术软件栈（Zotero/Obsidian/Xournal++/OCR/Pandoc/TeX Live）？" "y"; then
+      WITH_ACADEMIC=1
+    fi
   fi
 
   read_pkgs core.txt
@@ -303,12 +323,17 @@ fi
 section "完成"
 log "配置备份目录: $BACKUP_DIR"
 printf '\n下一步:\n'
-printf '  1. sovena 文献流: cd ~/sovena && uv run sovena（Zotero 需运行）\n'
-printf '  2. MCP Cockpit: cd ~/mcp-cockpit && bash scripts/start.sh（网页 127.0.0.1:8899）\n'
-printf '  3. 重新登录（或执行 omarchy restart terminal）让终端配置生效\n'
-printf '  4. 输入法：重新登录后按 Ctrl+Space 切换到 rime\n'
-printf '  5. 体检：omarchy-health-check --no-sudo\n'
-printf '  6. 遇到问题：docs/faq.md 或到仓库提 Issue\n'
+step=1
+if (( DO_SOVENA )); then
+  printf '  %d. sovena 文献流: cd ~/sovena && uv run sovena（Zotero 需运行）\n' "$step"; step=$((step + 1))
+fi
+if (( DO_MCP )); then
+  printf '  %d. MCP Cockpit: cd ~/mcp-cockpit && bash scripts/start.sh（网页 127.0.0.1:8899）\n' "$step"; step=$((step + 1))
+fi
+printf '  %d. 重新登录（或执行 omarchy restart terminal）让终端配置生效\n' "$step"; step=$((step + 1))
+printf '  %d. 输入法：重新登录后按 Ctrl+Space 切换到 rime\n' "$step"; step=$((step + 1))
+printf '  %d. 体检：omarchy-health-check --no-sudo\n' "$step"; step=$((step + 1))
+printf '  %d. 遇到问题：docs/faq.md 或到仓库提 Issue\n' "$step"
 if (( DRY_RUN )); then
   printf '\n（以上为 dry-run 预览，未实际执行任何操作）\n'
 fi

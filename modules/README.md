@@ -9,7 +9,7 @@
 | `openscience/` | [ai4s-research/open-science](https://github.com/ai4s-research/open-science) | MIT | Open Science Desktop：本地优先 AI 科研工作台（osd CLI） |
 | `aether/` | [Science-Discovery/Aether](https://github.com/Science-Discovery/Aether) | MIT | Aether 科研 AI 助手（文献综述/论文写作/审稿等 20+ 技能） |
 | `sovena/` | [sfk8815-create/sovena](https://github.com/sfk8815-create/sovena) | MIT | 缙云文采文献流系统（Zotero→语义检索→MCP）— **默认必装** |
-| `mcp-cockpit/` | [sfk8815-create/mcp-cockpit](https://github.com/sfk8815-create/mcp-cockpit) | 见仓库 LICENSE | MCP 统一网关管理台 + 自愈看门狗 — **默认必装** |
+| `mcp-cockpit/` | [sfk8815-create/mcp-cockpit](https://github.com/sfk8815-create/mcp-cockpit) | MIT | MCP 统一网关管理台 + 自愈看门狗 — **默认必装** |
 
 > sovena 与 mcp-cockpit 由 install.sh 默认安装（可用 `--no-sovena` / `--no-mcp-cockpit` 跳过）；其余模块为可选。
 
