@@ -3,6 +3,11 @@ pandoc
 texlive-latex
 tesseract
 tesseract-data-chi-sim
+ocrmypdf
+typst
+calibre
+zathura-pdf-mupdf
+jupyter-notebook
 xournalpp
 zettlr
 obsidian

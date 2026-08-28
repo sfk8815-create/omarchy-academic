@@ -32,3 +32,30 @@
 - **学研版**：学术向——中文环境、学术软件栈（Zotero/Obsidian/OCR/LaTeX）、教师/学生友好文档。
 
 两者可以共存（同一台 Omarchy 上先装 OmarchyCN 再叠加学研版配置，或反之）；学研版不提供完整 ISO，专注可叠加的配置层。
+
+## 学术科研方向调查（2026-08 补充）
+
+| 项目 | 星级 | 许可证 | 一句话定位 | 吸纳情况 |
+| --- | --- | --- | --- | --- |
+| [ai4s-research/open-science](https://github.com/ai4s-research/open-science)（Open Science Desktop） | 1.5k | MIT | 本地优先、模型无关的 AI 科研工作台（ResearchClawBench 榜首），`osd` 无头 CLI | **吸纳为模块** `modules/openscience/` |
+| [omacom-io/aether](https://github.com/omacom-io/aether)（Aether Desktop） | 651 | MIT（omarchy 包元数据） | 从壁纸提取配色并应用到整个桌面的主题应用 | **加入包清单** `packages/desktop.txt` |
+| [typst/typst](https://github.com/typst/typst) | 55.7k | Apache-2.0 | 面向科学的标记排版系统（LaTeX 现代替代） | **加入 `academic.txt`** |
+| [ocrmypdf/OCRmyPDF](https://github.com/ocrmypdf/OCRmyPDF) | 34.6k | MPL-2.0 | 给扫描 PDF 加 OCR 文本层（中文扫描件可搜索） | **加入 `academic.txt`**（archlinuxcn/AUR） |
+| [kovidgoyal/calibre](https://github.com/kovidgoyal/calibre) | 24k+ | GPL-3.0 | 电子书库管理 | **加入 `academic.txt`** |
+| [jupyter/notebook](https://github.com/jupyter/notebook) | 12k+ | BSD-3-Clause | 可复现研究笔记本 | **加入 `academic.txt`** |
+| [quarto-dev/quarto-cli](https://github.com/quarto-dev/quarto-cli) | 6k | 见仓库 LICENSE | 基于 Pandoc 的科学出版系统 | 文档记录（AUR `quarto-cli` 可装） |
+| [rendercv/rendercv](https://github.com/rendercv/rendercv) | 17.4k | MIT | 学术简历/求职材料生成器 | 文档记录（AUR `rendercv`） |
+| [JabRef/jabref](https://github.com/JabRef/jabref) | 4k+ | MIT | Java 文献管理（BibTeX 友好） | 文档记录（AUR `jabref`；已有 Zotero 时非必需） |
+| [paperless-ngx/paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) | 26k+ | GPL-3.0 | 论文/文档数字化归档与全文检索 | 文档记录（体量较大，后续可做模块） |
+| [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) | 1.5k | 见仓库 LICENSE | 面向学术写作的 AI 多智能体审稿/复现模板 | 文档记录 |
+| [sfk8815-create/sovena](https://github.com/sfk8815-create/sovena) | 5 | MIT | Zotero → 语义文献包 → 向量检索 + MCP（作者自有） | **吸纳为模块** `modules/sovena/` |
+| [sfk8815-create/mcp-cockpit](https://github.com/sfk8815-create/mcp-cockpit) | 1 | 见仓库 LICENSE | 统一 MCP 网关管理台 + 自愈看门狗（作者自有） | **吸纳为模块** `modules/mcp-cockpit/` |
+
+### 学术场景选型建议
+
+- **文献管理**：Zotero（已有）+ sovena（语义检索/OCR）→ 可选 JabRef（BibTeX 工作流）
+- **写作排版**：Pandoc + TeX Live（已有）+ Typst + Quarto
+- **阅读批注**：Zathura（MuPDF）+ Xournal++（已有）
+- **扫描件数字化**：Tesseract（已有）+ OCRmyPDF
+- **实验与复现**：Jupyter Notebook + Open Science Desktop
+- **AI 接入**：MCP Cockpit 统一网关，供 Codex / Claude / Trae 等客户端共享同一批 MCP 服务器

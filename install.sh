@@ -6,6 +6,7 @@
 #   ./install.sh --yes              全部可选模块（除硬件模块外）
 #   ./install.sh --with-apps --with-academic
 #   ./install.sh --with-zh-ui --with-lunar --with-cn-mirrors
+#   ./install.sh --with-desktop --with-sovena --with-mcp-cockpit
 #   ./install.sh --no-packages --no-locale
 #   ./install.sh --dry-run          只打印将要执行的步骤
 # 详见 docs/install.md
@@ -27,6 +28,9 @@ WITH_PROXY=0
 WITH_ZH_UI=0
 WITH_LUNAR=0
 WITH_CN_MIRRORS=0
+WITH_DESKTOP=0
+WITH_SOVENA=0
+WITH_MCP=0
 ASSUME_YES=0
 DRY_RUN=0
 TIMEZONE="Asia/Shanghai"
@@ -36,7 +40,7 @@ warn() { printf '\033[1;33m[警告]\033[0m %s\n' "$*"; }
 die()  { printf '\033[1;31m[错误]\033[0m %s\n' "$*" >&2; exit 1; }
 
 usage() {
-  sed -n '2,18p' "$0"
+  sed -n '2,20p' "$0"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -54,6 +58,9 @@ while [[ $# -gt 0 ]]; do
     --with-zh-ui)    WITH_ZH_UI=1 ;;
     --with-lunar)    WITH_LUNAR=1 ;;
     --with-cn-mirrors) WITH_CN_MIRRORS=1 ;;
+    --with-desktop)  WITH_DESKTOP=1 ;;
+    --with-sovena)   WITH_SOVENA=1 ;;
+    --with-mcp-cockpit) WITH_MCP=1 ;;
     --timezone)      TIMEZONE="$2"; shift ;;
     --yes|-y)        ASSUME_YES=1 ;;
     --dry-run)       DRY_RUN=1 ;;
@@ -246,6 +253,26 @@ fi
 if (( WITH_CN_MIRRORS )) || { (( ! ASSUME_YES )) && ask "配置国内镜像与 archlinuxcn 社区仓库？（需要 sudo）" "n"; }; then
   section "可选模块：国内镜像 + archlinuxcn"
   run sudo "$REPO_DIR/scripts/setup-cn-mirrors.sh"
+fi
+
+# ---------- 6c. 学术与桌面模块 ----------
+if (( WITH_DESKTOP )) || { (( ! ASSUME_YES )) && ask "安装桌面增强（Aether 主题应用 + Open Science Desktop 科研工作台）？" "n"; }; then
+  section "可选模块：桌面增强（Aether + Open Science）"
+  read_pkgs desktop.txt
+  if (( ${#PKGS[@]} > 0 )); then
+    run sudo pacman -S --needed --noconfirm "${PKGS[@]}"
+  fi
+  run "$REPO_DIR/modules/openscience/install.sh"
+fi
+
+if (( WITH_SOVENA )) || { (( ! ASSUME_YES )) && ask "安装 sovena 文献流系统（Zotero→语义检索，作者自有项目）？" "n"; }; then
+  section "可选模块：sovena 文献流系统"
+  run "$REPO_DIR/modules/sovena/install.sh"
+fi
+
+if (( WITH_MCP )) || { (( ! ASSUME_YES )) && ask "安装 MCP Cockpit（统一 MCP 网关管理台，作者自有项目）？" "n"; }; then
+  section "可选模块：MCP Cockpit"
+  run "$REPO_DIR/modules/mcp-cockpit/install.sh"
 fi
 
 # ---------- 7. 代理模板（可选） ----------

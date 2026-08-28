@@ -1,0 +1,3 @@
+# 桌面增强应用（omarchy 官方仓库）
+# Aether Desktop：从壁纸提取配色并应用到整个桌面主题（MIT）
+aether
