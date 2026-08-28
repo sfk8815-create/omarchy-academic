@@ -16,6 +16,10 @@ cd "$DEST"
 bash scripts/install.sh
 
 echo
+echo "注册 sovena 文献流 MCP 端点..."
+"$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/scripts/add-sovena-mcp.sh"
+
+echo
 echo "完成：mcp-hub 网关与管理台已安装（~/.config/mcp-hub/servers.json 不会被覆盖）。"
 echo "启动: cd $DEST && bash scripts/start.sh，浏览器打开 http://127.0.0.1:8899"
 echo "开机自启: 参照 $DEST/docs/systemd/ 安装 systemd --user 单元"

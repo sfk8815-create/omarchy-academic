@@ -12,6 +12,8 @@
 
 脚本从 GitHub Releases 下载最新 `aether-linux-x64.zip`（Web 浏览器版），解压到 `~/.local/opt/aether` 并安装 `~/.local/bin/aether` 包装脚本。
 
+> 安装包约 90MB，支持断点续传与自动重试；网络慢时请耐心等待。
+
 启动：
 
 ```bash

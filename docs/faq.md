@@ -90,6 +90,7 @@ Zotero 负责文献管理；配合本仓库的学术软件栈，可用 Tesseract
 
 - sovena 文献流：需要 Zotero 7+ 运行中、uv 已装；启动 `cd ~/sovena && uv run sovena`
 - MCP Cockpit：启动 `cd ~/mcp-cockpit && bash scripts/start.sh`，浏览器打开 127.0.0.1:8899
+- sovena 启动后，MCP Cockpit 会自动把它的 MCP 端点注册进网关（`scripts/add-sovena-mcp.sh`），AI 客户端连统一端点即可用文献检索
 
 两者均为作者自有项目（MIT / 见仓库 LICENSE），与学研版配套构成学术工作流。
 

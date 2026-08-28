@@ -2,7 +2,7 @@
 pandoc
 texlive-latex
 tesseract
-tesseract-data-chi-sim
+tesseract-data-chi_sim
 ocrmypdf
 typst
 calibre

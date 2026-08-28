@@ -24,7 +24,7 @@ url="https://github.com/$REPO/releases/download/$tag/$asset"
 echo "下载 $asset ..."
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
-curl -fSL "$url" -o "$tmp/osd.tar.gz"
+curl -fSL --retry 3 --retry-delay 5 -C - "$url" -o "$tmp/osd.tar.gz"
 
 # 2. 解压到 ~/.local/opt/osd（保留旧版本备份）
 if [[ -d "$DEST" ]]; then

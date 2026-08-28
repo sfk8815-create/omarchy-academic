@@ -22,7 +22,7 @@ jq --arg id "$PLUGIN_ID" '
   .bar.centerAnchor = $id |
   .bar.layout.center = [
     .bar.layout.center[]
-    | if .id == "omarchy.clock" then {id: $id} else . end
+    | if (.id == "omarchy.clock" or .id == "sfk.clock") then {id: $id} else . end
   ]
 ' "$SHELL_JSON" > "$SHELL_JSON.tmp"
 mv "$SHELL_JSON.tmp" "$SHELL_JSON"

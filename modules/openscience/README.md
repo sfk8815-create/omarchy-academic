@@ -12,6 +12,8 @@
 
 脚本会从 GitHub Releases 下载最新 `osd-*-x86_64-unknown-linux-gnu.tar.gz`，解压到 `~/.local/opt/osd` 并安装 `~/.local/bin/osd` 包装脚本。
 
+> 下载支持断点续传与自动重试；网络慢时请耐心等待。
+
 常用：
 
 ```bash

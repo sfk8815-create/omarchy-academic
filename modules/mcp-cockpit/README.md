@@ -12,6 +12,8 @@
 
 脚本会 clone 到 `~/mcp-cockpit`（可用环境变量 `MCP_COCKPIT_DIR` 覆盖）并运行其 `scripts/install.sh`（安装 mcp-hub 网关 + 生成配置模板，不覆盖已有配置）。
 
+安装完成后会自动把 **sovena 文献流的 MCP 端点**（`http://127.0.0.1:8765/mcp`）注册进网关，所有 AI 客户端经统一端点即可检索文献库。
+
 启动与自启：
 
 ```bash

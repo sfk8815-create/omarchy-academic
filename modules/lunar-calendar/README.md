@@ -2,7 +2,7 @@
 
 来源：[GaryLiuGTA/omarchy_chinese_lunar_calendar](https://github.com/GaryLiuGTA/omarchy_chinese_lunar_calendar)（MIT）
 
-作用：把内置时钟替换为带农历、二十四节气、节假日文案的日历组件（简/繁/英三语，可设置每周起始日）。
+作用：把内置时钟（含 Omarchy 界面汉化后的 `sfk.clock`）替换为带农历、二十四节气、节假日文案的日历组件（简/繁/英三语，可设置每周起始日）。
 
 安装（install.sh 交互选择，或 `--with-lunar`）：
 
