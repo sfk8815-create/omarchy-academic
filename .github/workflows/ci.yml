@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck jq lua5.4
+
+      - name: bash syntax
+        run: |
+          bash -n install.sh uninstall.sh sync.sh scripts/*.sh hardware/*/install.sh
+
+      - name: shellcheck
+        run: |
+          shellcheck install.sh uninstall.sh sync.sh scripts/*.sh hardware/*/install.sh
+
+      - name: JSON validation
+        run: |
+          jq empty config/omarchy/shell.json
+          find . -name '*.json' -not -path './.git/*' -print0 | xargs -0 -n1 jq empty
+
+      - name: TOML validation
+        run: |
+          python3 - <<'EOF'
+          import pathlib, tomllib
+          ok = True
+          for p in pathlib.Path(".").rglob("*.toml"):
+              if ".git" in p.parts:
+                  continue
+              try:
+                  tomllib.loads(p.read_text(encoding="utf-8"))
+              except Exception as e:
+                  print(f"FAIL {p}: {e}")
+                  ok = False
+          if not ok:
+              raise SystemExit(1)
+          print("TOML OK")
+          EOF
+
+      - name: Lua validation
+        run: |
+          find . -name '*.lua' -not -path './.git/*' -print0 | xargs -0 -n1 luac -p
+
+      - name: whitespace check
+        run: git diff --check

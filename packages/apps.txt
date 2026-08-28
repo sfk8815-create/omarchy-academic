@@ -1,0 +1,7 @@
+# 中文办公/通讯应用（AUR，需要 yay/paru；闭源软件版权归原厂商）
+wechat-universal-bwrap
+dingtalk-bin
+feishu-bin
+wps-office
+wps-office-mui-zh-cn
+ttf-wps-fonts

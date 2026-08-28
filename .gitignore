@@ -1,0 +1,16 @@
+# 本机备份（由 install.sh / 硬件模块生成）
+*.bak*
+
+# 代理真实配置：只提交 example 模板
+templates/environment.d/proxy.conf
+
+# Rime 个人数据：只提交补丁与示例
+rime/*.userdb/
+rime/user.yaml
+rime/installation.yaml
+rime/custom_phrase.txt
+
+# 编辑器 / 系统
+.DS_Store
+*.swp
+*~

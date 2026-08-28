@@ -1,0 +1,11 @@
+# 中文输入法
+fcitx5
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-qt
+fcitx5-rime
+librime
+
+# 中文字体（终端配置使用 JetBrainsMono Nerd Font + Noto Sans CJK）
+noto-fonts-cjk
+ttf-jetbrains-mono-nerd-basic

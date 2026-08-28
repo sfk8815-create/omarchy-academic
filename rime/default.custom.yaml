@@ -1,0 +1,7 @@
+# Omarchy 学研版补丁（基于 rime-ice 默认配置修改，GPL-3.0）
+# 功能：开启 , / . 翻页，与 rime-ice 建议方案一致
+patch:
+  __include: rime_ice_suggestion:/
+  key_binder/bindings/+:
+    - { when: paging, accept: comma, send: Page_Up }
+    - { when: has_menu, accept: period, send: Page_Down }

@@ -1,0 +1,12 @@
+# Rime 自定义短语示例
+# coding: utf-8
+#@/db_name	custom_phrase.txt
+#@/db_type	tabledb
+#
+# 格式：词汇<Tab>编码<Tab>权重（权重越大越靠前）
+# 把常用的邮箱、机构名、专业术语等固定到首选位置。
+#
+# 示例（请替换成你自己的内容）：
+人工智能	rgzn	10
+学术会议	xshy	10
+论文	doi	10

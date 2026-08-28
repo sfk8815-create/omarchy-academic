@@ -1,0 +1,6 @@
+#!/bin/bash
+# sudo askpass helper：优先 zenity，回退到 GTK 弹窗
+if command -v zenity >/dev/null 2>&1; then
+    exec zenity --password --title="sudo 密码"
+fi
+exec python3 "$HOME/.local/bin/gui-password"
