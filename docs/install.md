@@ -30,7 +30,7 @@ cd omarchy-academic
    - Omarchy 界面简体中文化（第三方 MIT 项目）
    - 状态栏农历日历（第三方 MIT 项目）
    - 国内镜像 + archlinuxcn 社区仓库
-   - Aether 主题应用 + Open Science Desktop 科研工作台
+   - Aether 科研 AI 助手 + Open Science Desktop 科研工作台
    - sovena 文献流系统（Zotero → 语义检索）
    - MCP Cockpit（统一 MCP 网关管理台）
 
@@ -43,7 +43,7 @@ cd omarchy-academic
 ./install.sh --with-zh-ui       # 界面简体中文化（QueedWen/omarchy-zh-cn, MIT）
 ./install.sh --with-lunar       # 农历日历（garyliu.lunar-calendar, MIT）
 ./install.sh --with-cn-mirrors  # 国内镜像 + archlinuxcn
-./install.sh --with-desktop     # Aether + Open Science Desktop
+./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop
 ./install.sh --with-sovena      # sovena 文献流
 ./install.sh --with-mcp-cockpit # MCP Cockpit
 ./install.sh --no-locale        # 跳过系统区域设置

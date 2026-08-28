@@ -256,12 +256,9 @@ if (( WITH_CN_MIRRORS )) || { (( ! ASSUME_YES )) && ask "配置国内镜像与 a
 fi
 
 # ---------- 6c. 学术与桌面模块 ----------
-if (( WITH_DESKTOP )) || { (( ! ASSUME_YES )) && ask "安装桌面增强（Aether 主题应用 + Open Science Desktop 科研工作台）？" "n"; }; then
+if (( WITH_DESKTOP )) || { (( ! ASSUME_YES )) && ask "安装桌面增强（Aether 科研 AI 助手 + Open Science Desktop 科研工作台）？" "n"; }; then
   section "可选模块：桌面增强（Aether + Open Science）"
-  read_pkgs desktop.txt
-  if (( ${#PKGS[@]} > 0 )); then
-    run sudo pacman -S --needed --noconfirm "${PKGS[@]}"
-  fi
+  run "$REPO_DIR/modules/aether/install.sh"
   run "$REPO_DIR/modules/openscience/install.sh"
 fi
 

@@ -12,7 +12,7 @@ Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），
 - 中文办公应用（可选）：微信、钉钉、飞书、WPS Office
 - 硬件模块（可选）：Apple 键盘 fn 键、HiDPI 缩放
 - 社区模块（可选）：Omarchy 界面简体中文化、状态栏农历日历、国内镜像 + archlinuxcn 仓库
-- 学术与桌面模块（可选）：sovena 文献流、MCP Cockpit、Open Science Desktop、Aether 主题
+- 学术与桌面模块（可选）：sovena 文献流、MCP Cockpit、Open Science Desktop、Aether 科研 AI 助手
 - 中文 sudo 密码弹窗、系统健康检查等自写工具
 - 一键安装/卸载、长期维护（`sync.sh` + GitHub Actions CI）
 
@@ -43,7 +43,7 @@ cd omarchy-academic
 ./install.sh --with-zh-ui       # Omarchy 界面简体中文化（MIT）
 ./install.sh --with-lunar       # 状态栏农历日历（MIT）
 ./install.sh --with-cn-mirrors  # 国内镜像 + archlinuxcn 社区仓库
-./install.sh --with-desktop     # Aether 主题 + Open Science Desktop 科研工作台
+./install.sh --with-desktop     # Aether 科研 AI 助手 + Open Science Desktop 科研工作台
 ./install.sh --with-sovena      # 缙云文采文献流系统（Zotero→语义检索）
 ./install.sh --with-mcp-cockpit # MCP 统一网关管理台
 ```

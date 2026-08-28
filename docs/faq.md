@@ -82,7 +82,7 @@ Zotero 负责文献管理；配合本仓库的学术软件栈，可用 Tesseract
 ```bash
 ./install.sh --with-sovena      # 缙云文采文献流（需 Zotero 7+ 运行中、uv 已装）
 ./install.sh --with-mcp-cockpit # MCP 统一网关管理台（浏览器打开 127.0.0.1:8899）
-./install.sh --with-desktop     # Aether 主题 + Open Science Desktop（osd server 起工作台）
+./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop（osd server 起工作台）
 ```
 
 sovena 与 MCP Cockpit 是作者自有项目（MIT / 见仓库 LICENSE），与学研版配套构成学术工作流。

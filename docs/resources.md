@@ -38,7 +38,7 @@
 | 项目 | 星级 | 许可证 | 一句话定位 | 吸纳情况 |
 | --- | --- | --- | --- | --- |
 | [ai4s-research/open-science](https://github.com/ai4s-research/open-science)（Open Science Desktop） | 1.5k | MIT | 本地优先、模型无关的 AI 科研工作台（ResearchClawBench 榜首），`osd` 无头 CLI | **吸纳为模块** `modules/openscience/` |
-| [omacom-io/aether](https://github.com/omacom-io/aether)（Aether Desktop） | 651 | MIT（omarchy 包元数据） | 从壁纸提取配色并应用到整个桌面的主题应用 | **加入包清单** `packages/desktop.txt` |
+| [Science-Discovery/Aether](https://github.com/Science-Discovery/Aether)（Aether 科研助手） | 71 | MIT | 基于 OpenCode 的本地 AI 科研助手：文献综述/论文写作/审稿/基金写作等 20+ 技能，RAG、MCP、PDF→Markdown | **吸纳为模块** `modules/aether/` |
 | [typst/typst](https://github.com/typst/typst) | 55.7k | Apache-2.0 | 面向科学的标记排版系统（LaTeX 现代替代） | **加入 `academic.txt`** |
 | [ocrmypdf/OCRmyPDF](https://github.com/ocrmypdf/OCRmyPDF) | 34.6k | MPL-2.0 | 给扫描 PDF 加 OCR 文本层（中文扫描件可搜索） | **加入 `academic.txt`**（archlinuxcn/AUR） |
 | [kovidgoyal/calibre](https://github.com/kovidgoyal/calibre) | 24k+ | GPL-3.0 | 电子书库管理 | **加入 `academic.txt`** |
@@ -58,4 +58,4 @@
 - **阅读批注**：Zathura（MuPDF）+ Xournal++（已有）
 - **扫描件数字化**：Tesseract（已有）+ OCRmyPDF
 - **实验与复现**：Jupyter Notebook + Open Science Desktop
-- **AI 接入**：MCP Cockpit 统一网关，供 Codex / Claude / Trae 等客户端共享同一批 MCP 服务器
+- **AI 接入**：MCP Cockpit 统一网关，供 Codex / Claude / Trae 等客户端共享同一批 MCP 服务器；Aether 科研助手承担文献综述/写作/审稿等研究型任务
