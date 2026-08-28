@@ -36,6 +36,14 @@ ASSUME_YES=0
 DRY_RUN=0
 TIMEZONE="Asia/Shanghai"
 
+# sudo 优先使用本机 askpass（中文密码弹窗）；没有 askpass 时回退普通 sudo
+SUDO_CMD=(sudo)
+if [[ -x "${SUDO_ASKPASS:-$HOME/.local/bin/sudo-askpass}" ]]; then
+  SUDO_ASKPASS="${SUDO_ASKPASS:-$HOME/.local/bin/sudo-askpass}"
+  export SUDO_ASKPASS
+  SUDO_CMD=(sudo -A)
+fi
+
 log()  { printf '\033[1;36m[学研版]\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33m[警告]\033[0m %s\n' "$*"; }
 die()  { printf '\033[1;31m[错误]\033[0m %s\n' "$*" >&2; exit 1; }
@@ -143,7 +151,7 @@ if (( DO_PACKAGES )); then
 
   read_pkgs core.txt
   if (( ${#PKGS[@]} > 0 )); then
-    run sudo pacman -S --needed --noconfirm "${PKGS[@]}"
+    run "${SUDO_CMD[@]}" pacman -S --needed --noconfirm "${PKGS[@]}"
   fi
 
   if (( WITH_APPS || WITH_ACADEMIC )); then
@@ -182,7 +190,7 @@ fi
 # ---------- 2. 中文区域设置 ----------
 if (( DO_LOCALE )); then
   section "中文区域设置 (zh_CN.UTF-8)"
-  run sudo "$REPO_DIR/scripts/setup-locale.sh" --timezone "$TIMEZONE"
+  run "${SUDO_CMD[@]}" "$REPO_DIR/scripts/setup-locale.sh" --timezone "$TIMEZONE"
 else
   warn "跳过区域设置 (--no-locale)"
 fi
@@ -268,7 +276,7 @@ fi
 
 if (( WITH_CN_MIRRORS )) || { (( ! ASSUME_YES )) && ask "配置国内镜像与 archlinuxcn 社区仓库？（需要 sudo）" "n"; }; then
   section "可选模块：国内镜像 + archlinuxcn"
-  run sudo "$REPO_DIR/scripts/setup-cn-mirrors.sh"
+  run "${SUDO_CMD[@]}" "$REPO_DIR/scripts/setup-cn-mirrors.sh"
 fi
 
 # ---------- 6c. 学术与桌面模块 ----------
