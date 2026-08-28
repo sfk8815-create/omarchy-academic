@@ -65,6 +65,23 @@ Zotero 负责文献管理；配合本仓库的学术软件栈，可用 Tesseract
 
 确认代理软件在运行、端口正确；`curl -I https://github.com` 看是否走通。环境变量对已登录的图形会话要重新登录才生效。
 
+### 透明代理（TUN 模式）下不要设置显式代理变量
+
+- 现象：mihomo/clash 开启 **TUN 模式**后，如果系统里再设置 `http_proxy`/`https_proxy` 指向 `127.0.0.1:7897`，pacman 从国内镜像（清华/中科大等）下载会报 `Operation too slow` 超时。
+- 原因：流量被代理链绕行两遍——TUN 已接管全部流量，显式代理又转发一次，国内源反而被拖慢。
+- 建议：TUN 模式下**不要**设置全局显式代理变量；显式代理只用于单独的大文件下载（见下一条）。
+
+### GitHub 大文件下载慢/卡住怎么办
+
+学研版的大文件下载模块（Aether、Open Science Desktop）支持只给下载走代理：
+
+```bash
+DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/aether/install.sh
+DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/openscience/install.sh
+```
+
+只影响该次下载，不污染系统其他流量；模块已内置断点续传与自动重试。另外这些模块不依赖未认证的 GitHub API（有每小时限流），而是走 `releases/latest` 跳转，避免 403。
+
 ## 系统
 
 ### 界面汉化/农历日历/国内镜像怎么装

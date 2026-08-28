@@ -14,6 +14,8 @@
 
 > 下载支持断点续传与自动重试；网络慢时请耐心等待。
 
+> GitHub 直连慢时可只给下载走代理：`DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/openscience/install.sh`
+
 常用：
 
 ```bash

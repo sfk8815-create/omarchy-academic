@@ -14,6 +14,9 @@
 
 > 安装包约 90MB，支持断点续传与自动重试；网络慢时请耐心等待。
 
+> GitHub 直连慢时可只给下载走代理（不影响系统其他流量）：
+> `DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/aether/install.sh`
+
 启动：
 
 ```bash

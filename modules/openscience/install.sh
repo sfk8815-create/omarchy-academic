@@ -8,23 +8,28 @@ DEST="$HOME/.local/opt/osd"
 WRAPPER="$HOME/.local/bin/osd"
 
 command -v curl >/dev/null 2>&1 || { echo "[错误] 需要 curl" >&2; exit 1; }
-command -v jq >/dev/null 2>&1 || { echo "[错误] 需要 jq" >&2; exit 1; }
 command -v tar >/dev/null 2>&1 || { echo "[错误] 需要 tar" >&2; exit 1; }
 
-# 1. 获取最新版本与 Linux x86_64 CLI 资产
-release="$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest")"
-tag="$(printf '%s' "$release" | jq -r .tag_name)"
-asset="$(printf '%s' "$release" | jq -r '.assets[].name | select(test("x86_64-unknown-linux-gnu\\.tar\\.gz$"))' | head -1)"
-if [[ -z "$asset" ]]; then
-  echo "[错误] 未找到 Linux CLI 发布资产（$tag）" >&2
-  exit 1
-fi
+# 大文件下载可选走代理（避免 GitHub API 未认证限流；只对下载生效）
+PROXY="${DOWNLOAD_PROXY:-}"
+curl_cmd() {
+  if [[ -n "$PROXY" ]]; then
+    curl -fSL --proxy "$PROXY" "$@"
+  else
+    curl -fSL "$@"
+  fi
+}
+
+# 1. 通过 releases/latest 跳转获取最新 tag（不依赖 GitHub API，避免未认证限流）
+latest_url="$(curl_cmd -sIL -o /dev/null -w '%{url_effective}' "https://github.com/$REPO/releases/latest")"
+tag="${latest_url##*/}"
+asset="osd-${tag#v}-x86_64-unknown-linux-gnu.tar.gz"
 url="https://github.com/$REPO/releases/download/$tag/$asset"
 
 echo "下载 $asset ..."
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
-curl -fSL --retry 3 --retry-delay 5 -C - "$url" -o "$tmp/osd.tar.gz"
+curl_cmd --retry 3 --retry-delay 5 -C - "$url" -o "$tmp/osd.tar.gz"
 
 # 2. 解压到 ~/.local/opt/osd（保留旧版本备份）
 if [[ -d "$DEST" ]]; then
@@ -33,11 +38,9 @@ fi
 mkdir -p "$DEST"
 tar -xzf "$tmp/osd.tar.gz" -C "$DEST"
 
-if [[ -x "$DEST/usr/bin/osd" ]]; then
-  bin_rel="$HOME/.local/opt/osd/usr/bin/osd"
-elif [[ -x "$DEST/osd" ]]; then
-  bin_rel="$HOME/.local/opt/osd/osd"
-else
+# 兼容压缩包内带顶层目录的情况：自动定位 osd 可执行文件
+BIN="$(find "$DEST" -maxdepth 3 -type f -name osd -perm -u+x 2>/dev/null | head -1)"
+if [[ -z "$BIN" ]]; then
   echo "[错误] 解压后未找到 osd 可执行文件" >&2
   exit 1
 fi
@@ -47,10 +50,11 @@ mkdir -p "$HOME/.local/bin"
 cat > "$WRAPPER" <<'EOF'
 #!/bin/sh
 # Open Science Desktop CLI wrapper（安装自 omarchy-academic）
-exec "$HOME/.local/opt/osd/usr/bin/osd" "$@"
+exec "BIN_PATH" "$@"
 EOF
+sed -i "s|BIN_PATH|$BIN|" "$WRAPPER"
 chmod +x "$WRAPPER"
 
-echo "完成：osd $tag 已安装（$bin_rel）"
+echo "完成：osd $tag 已安装（$BIN）"
 echo "用法: osd server（启动工作台）；osd --help 查看全部命令"
 echo "卸载: 删除 $DEST 与 $WRAPPER"
