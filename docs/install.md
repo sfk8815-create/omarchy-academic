@@ -21,7 +21,8 @@ cd omarchy-academic
 3. **配置部署**：字体回退、输入法 profile、Hyprland 输入法环境、状态栏、四个终端配置；被覆盖的文件自动备份
 4. **Rime**：从上游拉取 rime-ice 并应用补丁（`,` `.` 翻页）
 5. **小工具**：中文 sudo 密码弹窗、健康检查脚本
-6. **可选模块**（交互式询问）：
+6. **sovena + MCP Cockpit（默认必装）**：文献流系统与统一 MCP 网关（可用 `--no-sovena` / `--no-mcp-cockpit` 跳过）
+7. **可选模块**（交互式询问）：
    - 中文应用（微信 / 钉钉 / 飞书 / WPS，AUR）
    - 学术软件栈（Zotero / Obsidian / Zettlr / Xournal++ / OCR / Pandoc / TeX Live）
    - HiDPI 缩放（4K 屏）
@@ -31,8 +32,6 @@ cd omarchy-academic
    - 状态栏农历日历（第三方 MIT 项目）
    - 国内镜像 + archlinuxcn 社区仓库
    - Aether 科研 AI 助手 + Open Science Desktop 科研工作台
-   - sovena 文献流系统（Zotero → 语义检索）
-   - MCP Cockpit（统一 MCP 网关管理台）
 
 ## 常用参数
 
@@ -44,8 +43,8 @@ cd omarchy-academic
 ./install.sh --with-lunar       # 农历日历（garyliu.lunar-calendar, MIT）
 ./install.sh --with-cn-mirrors  # 国内镜像 + archlinuxcn
 ./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop
-./install.sh --with-sovena      # sovena 文献流
-./install.sh --with-mcp-cockpit # MCP Cockpit
+./install.sh --no-sovena        # 跳过 sovena（默认必装）
+./install.sh --no-mcp-cockpit   # 跳过 MCP Cockpit（默认必装）
 ./install.sh --no-locale        # 跳过系统区域设置
 ./install.sh --yes              # 全部可选模块（不含硬件）默认安装
 ```

@@ -4,10 +4,10 @@
 
 作用：Zotero → Markdown 语义文献包 → 向量检索的本地文献流系统，以 MCP 服务暴露给任意 AI 客户端；扫描版 PDF 自动走 OCR（MLX / GGUF 双后端）。
 
-安装（install.sh 交互选择，或 `--with-sovena`）：
+安装（**默认必装**，install.sh 自动执行；不需要时用 `--no-sovena` 跳过）：
 
 ```bash
-./install.sh --with-sovena
+./install.sh
 ```
 
 脚本会 clone 到 `~/sovena`（可用环境变量 `SOVENA_DIR` 覆盖）并执行 `uv sync`。

@@ -12,7 +12,8 @@ A customization layer on top of [Omarchy](https://omarchy.org/) 4.0.1 that turns
 - Optional Chinese apps: WeChat, DingTalk, Feishu, WPS Office
 - Optional hardware modules: Apple keyboard, HiDPI
 - Optional community modules: Chinese UI localization, lunar calendar, China mirrors + archlinuxcn
-- Academic/desktop modules: sovena literature workflow, MCP Cockpit, Open Science Desktop, Aether research assistant
+- Bundled by default: sovena literature workflow + MCP Cockpit gateway
+- Optional modules: Open Science Desktop, Aether research assistant, UI localization, lunar calendar, China mirrors
 - One-command install/uninstall, `sync.sh`, and CI checks
 
 ## Quick start
@@ -32,8 +33,8 @@ Community modules (sources and licenses in [docs/resources.md](docs/resources.md
 ./install.sh --with-lunar       # Chinese lunar calendar bar widget (MIT)
 ./install.sh --with-cn-mirrors  # China mirrors + archlinuxcn repository
 ./install.sh --with-desktop     # Aether research assistant + Open Science Desktop
-./install.sh --with-sovena      # sovena literature workflow (Zotero → semantic search)
-./install.sh --with-mcp-cockpit # unified MCP gateway cockpit
 ```
+
+> sovena and MCP Cockpit are installed by default; skip them with `--no-sovena` / `--no-mcp-cockpit`.
 
 See [docs/install.md](docs/install.md) (Chinese) for details. The repo contains no personal data or secrets.

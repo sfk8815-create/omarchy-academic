@@ -6,7 +6,8 @@
 #   ./install.sh --yes              全部可选模块（除硬件模块外）
 #   ./install.sh --with-apps --with-academic
 #   ./install.sh --with-zh-ui --with-lunar --with-cn-mirrors
-#   ./install.sh --with-desktop --with-sovena --with-mcp-cockpit
+#   ./install.sh --with-desktop
+#   ./install.sh --no-sovena --no-mcp-cockpit     # 跳过默认必装的文献流/MCP 网关
 #   ./install.sh --no-packages --no-locale
 #   ./install.sh --dry-run          只打印将要执行的步骤
 # 详见 docs/install.md
@@ -29,8 +30,8 @@ WITH_ZH_UI=0
 WITH_LUNAR=0
 WITH_CN_MIRRORS=0
 WITH_DESKTOP=0
-WITH_SOVENA=0
-WITH_MCP=0
+DO_SOVENA=1
+DO_MCP=1
 ASSUME_YES=0
 DRY_RUN=0
 TIMEZONE="Asia/Shanghai"
@@ -40,7 +41,7 @@ warn() { printf '\033[1;33m[警告]\033[0m %s\n' "$*"; }
 die()  { printf '\033[1;31m[错误]\033[0m %s\n' "$*" >&2; exit 1; }
 
 usage() {
-  sed -n '2,20p' "$0"
+  sed -n '2,22p' "$0"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -59,8 +60,8 @@ while [[ $# -gt 0 ]]; do
     --with-lunar)    WITH_LUNAR=1 ;;
     --with-cn-mirrors) WITH_CN_MIRRORS=1 ;;
     --with-desktop)  WITH_DESKTOP=1 ;;
-    --with-sovena)   WITH_SOVENA=1 ;;
-    --with-mcp-cockpit) WITH_MCP=1 ;;
+    --no-sovena)     DO_SOVENA=0 ;;
+    --no-mcp-cockpit) DO_MCP=0 ;;
     --timezone)      TIMEZONE="$2"; shift ;;
     --yes|-y)        ASSUME_YES=1 ;;
     --dry-run)       DRY_RUN=1 ;;
@@ -222,6 +223,21 @@ else
   warn "跳过小工具安装 (--no-helpers)"
 fi
 
+# ---------- 5b. 文献流与 MCP 网关（默认必装） ----------
+if (( DO_SOVENA )); then
+  section "sovena 文献流系统（默认必装）"
+  run "$REPO_DIR/modules/sovena/install.sh"
+else
+  warn "跳过 sovena 安装 (--no-sovena)"
+fi
+
+if (( DO_MCP )); then
+  section "MCP Cockpit（默认必装）"
+  run "$REPO_DIR/modules/mcp-cockpit/install.sh"
+else
+  warn "跳过 MCP Cockpit 安装 (--no-mcp-cockpit)"
+fi
+
 # ---------- 6. 可选硬件模块 ----------
 if (( WITH_HIDPI )); then
   section "硬件模块：HiDPI 缩放"
@@ -262,16 +278,6 @@ if (( WITH_DESKTOP )) || { (( ! ASSUME_YES )) && ask "安装桌面增强（Aethe
   run "$REPO_DIR/modules/openscience/install.sh"
 fi
 
-if (( WITH_SOVENA )) || { (( ! ASSUME_YES )) && ask "安装 sovena 文献流系统（Zotero→语义检索，作者自有项目）？" "n"; }; then
-  section "可选模块：sovena 文献流系统"
-  run "$REPO_DIR/modules/sovena/install.sh"
-fi
-
-if (( WITH_MCP )) || { (( ! ASSUME_YES )) && ask "安装 MCP Cockpit（统一 MCP 网关管理台，作者自有项目）？" "n"; }; then
-  section "可选模块：MCP Cockpit"
-  run "$REPO_DIR/modules/mcp-cockpit/install.sh"
-fi
-
 # ---------- 7. 代理模板（可选） ----------
 if (( WITH_PROXY )) || ask "安装代理环境变量模板？（用于访问 GitHub 等）" "n"; then
   section "代理环境变量模板"
@@ -289,10 +295,12 @@ fi
 section "完成"
 log "配置备份目录: $BACKUP_DIR"
 printf '\n下一步:\n'
-printf '  1. 重新登录（或执行 omarchy restart terminal）让终端配置生效\n'
-printf '  2. 输入法：重新登录后按 Ctrl+Space 切换到 rime\n'
-printf '  3. 体检：omarchy-health-check --no-sudo\n'
-printf '  4. 遇到问题：docs/faq.md 或到仓库提 Issue\n'
+printf '  1. sovena 文献流: cd ~/sovena && uv run sovena（Zotero 需运行）\n'
+printf '  2. MCP Cockpit: cd ~/mcp-cockpit && bash scripts/start.sh（网页 127.0.0.1:8899）\n'
+printf '  3. 重新登录（或执行 omarchy restart terminal）让终端配置生效\n'
+printf '  4. 输入法：重新登录后按 Ctrl+Space 切换到 rime\n'
+printf '  5. 体检：omarchy-health-check --no-sudo\n'
+printf '  6. 遇到问题：docs/faq.md 或到仓库提 Issue\n'
 if (( DRY_RUN )); then
   printf '\n（以上为 dry-run 预览，未实际执行任何操作）\n'
 fi

@@ -77,15 +77,21 @@ Zotero 负责文献管理；配合本仓库的学术软件栈，可用 Tesseract
 
 三者均来自 MIT 社区项目或公开镜像配置，来源见 docs/resources.md；卸载方式见 modules/ 下对应 README。
 
-### sovena / MCP Cockpit / Open Science Desktop 怎么装
+### sovena / MCP Cockpit 是必装吗
 
 ```bash
-./install.sh --with-sovena      # 缙云文采文献流（需 Zotero 7+ 运行中、uv 已装）
-./install.sh --with-mcp-cockpit # MCP 统一网关管理台（浏览器打开 127.0.0.1:8899）
-./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop（osd server 起工作台）
+./install.sh                    # 默认自动安装 sovena + MCP Cockpit
+./install.sh --no-sovena        # 不需要时跳过
+./install.sh --no-mcp-cockpit   # 不需要时跳过
+./install.sh --with-desktop     # 另装 Aether 科研助手 + Open Science Desktop
 ```
 
-sovena 与 MCP Cockpit 是作者自有项目（MIT / 见仓库 LICENSE），与学研版配套构成学术工作流。
+是的，两者是**默认必装**：
+
+- sovena 文献流：需要 Zotero 7+ 运行中、uv 已装；启动 `cd ~/sovena && uv run sovena`
+- MCP Cockpit：启动 `cd ~/mcp-cockpit && bash scripts/start.sh`，浏览器打开 127.0.0.1:8899
+
+两者均为作者自有项目（MIT / 见仓库 LICENSE），与学研版配套构成学术工作流。
 
 ### 装了 archlinuxcn 之后 AUR 助手要不要改
 
