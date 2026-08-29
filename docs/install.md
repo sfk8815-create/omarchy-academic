@@ -22,6 +22,7 @@ cd omarchy-academic
 4. **Rime**：从上游拉取 rime-ice 并应用补丁（`,` `.` 翻页）
 5. **小工具**：中文 sudo 密码弹窗、健康检查脚本
 6. **sovena + MCP Cockpit（默认必装）**：文献流系统与统一 MCP 网关（可用 `--no-sovena` / `--no-mcp-cockpit` 跳过）
+   - 安装后会把两个监管台加入默认浏览器书签栏（`localhost:8765` / `127.0.0.1:8899`；支持 Chromium/Chrome/Brave/Edge/Firefox，重启浏览器生效；可用 `--no-browser-bookmarks` 跳过）
 7. **可选模块**（交互式询问）：
    - 中文应用（微信 / 钉钉 / 飞书 / WPS，AUR）
    - 学术软件栈（Zotero / Obsidian / Zettlr / Xournal++ / OCR / Pandoc / TeX Live）
@@ -45,6 +46,7 @@ cd omarchy-academic
 ./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop
 ./install.sh --no-sovena        # 跳过 sovena（默认必装）
 ./install.sh --no-mcp-cockpit   # 跳过 MCP Cockpit（默认必装）
+./install.sh --no-browser-bookmarks  # 不写入浏览器书签（默认写入）
 ./install.sh --core-only        # 只装核心中文化（locale/输入法/字体/终端/工具）
 ./install.sh --no-locale        # 跳过系统区域设置
 ./install.sh --yes              # 全部可选模块（不含硬件）默认安装

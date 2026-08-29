@@ -8,6 +8,7 @@
 #   ./install.sh --with-zh-ui --with-lunar --with-cn-mirrors
 #   ./install.sh --with-desktop
 #   ./install.sh --no-sovena --no-mcp-cockpit     # 跳过默认必装的文献流/MCP 网关
+#   ./install.sh --no-browser-bookmarks           # 跳过浏览器书签（Sovena/MCP 管理页）
 #   ./install.sh --core-only                      # 只装核心中文化（含 Rime/终端/字体）
 #   ./install.sh --no-packages --no-locale
 #   ./install.sh --dry-run          只打印将要执行的步骤
@@ -33,6 +34,7 @@ WITH_CN_MIRRORS=0
 WITH_DESKTOP=0
 DO_SOVENA=1
 DO_MCP=1
+DO_BOOKMARKS=1
 CORE_ONLY=0
 ASSUME_YES=0
 DRY_RUN=0
@@ -72,6 +74,7 @@ while [[ $# -gt 0 ]]; do
     --with-desktop)  WITH_DESKTOP=1 ;;
     --no-sovena)     DO_SOVENA=0 ;;
     --no-mcp-cockpit) DO_MCP=0 ;;
+    --no-browser-bookmarks) DO_BOOKMARKS=0 ;;
     --core-only)     CORE_ONLY=1 ;;
     --timezone)      TIMEZONE="$2"; shift ;;
     --yes|-y)        ASSUME_YES=1 ;;
@@ -94,6 +97,7 @@ if (( CORE_ONLY )); then
   WITH_DESKTOP=0
   DO_SOVENA=0
   DO_MCP=0
+  DO_BOOKMARKS=0
   ASSUME_YES=0
 fi
 
@@ -266,6 +270,14 @@ else
   warn "跳过 MCP Cockpit 安装 (--no-mcp-cockpit)"
 fi
 
+# ---------- 5c. 浏览器书签（Sovena / MCP Cockpit 管理页，默认写入） ----------
+if (( DO_BOOKMARKS )) && (( DO_SOVENA || DO_MCP )); then
+  section "浏览器书签（Sovena / MCP Cockpit 管理页）"
+  run "${SUDO_CMD[@]}" "$REPO_DIR/scripts/add-browser-bookmarks.sh"
+else
+  warn "跳过浏览器书签写入 (--no-browser-bookmarks)"
+fi
+
 # ---------- 6. 可选硬件模块 ----------
 if (( WITH_HIDPI )); then
   section "硬件模块：HiDPI 缩放"
@@ -329,6 +341,9 @@ if (( DO_SOVENA )); then
 fi
 if (( DO_MCP )); then
   printf '  %d. MCP Cockpit: cd ~/mcp-cockpit && bash scripts/start.sh（网页 127.0.0.1:8899）\n' "$step"; step=$((step + 1))
+fi
+if (( DO_BOOKMARKS )) && (( DO_SOVENA || DO_MCP )); then
+  printf '  %d. 浏览器书签栏已加入 Sovena / MCP Cockpit 管理页（重启浏览器生效）\n' "$step"; step=$((step + 1))
 fi
 printf '  %d. 重新登录（或执行 omarchy restart terminal）让终端配置生效\n' "$step"; step=$((step + 1))
 printf '  %d. 输入法：重新登录后按 Ctrl+Space 切换到 rime\n' "$step"; step=$((step + 1))

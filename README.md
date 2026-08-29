@@ -13,6 +13,7 @@ Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），
 - 硬件模块（可选）：Apple 键盘 fn 键、HiDPI 缩放
 - 社区模块（可选）：Omarchy 界面简体中文化、状态栏农历日历、国内镜像 + archlinuxcn 仓库
 - 默认集成：sovena 文献流系统（Zotero→语义检索）+ MCP Cockpit 统一网关
+- 默认把 sovena / MCP Cockpit 管理页面加入**默认浏览器书签栏**（`--no-browser-bookmarks` 可跳过）
 - 可选模块：Open Science Desktop、Aether 科研 AI 助手、界面汉化、农历日历、国内镜像等
 - 中文 sudo 密码弹窗、系统健康检查等自写工具
 - 一键安装/卸载、长期维护（`sync.sh` + GitHub Actions CI）
@@ -55,7 +56,7 @@ cd omarchy-academic
 ./install.sh --with-desktop     # Aether 科研 AI 助手 + Open Science Desktop 科研工作台
 ```
 
-> sovena 与 MCP Cockpit 为**默认必装**，无需加参数；可用 `--no-sovena` / `--no-mcp-cockpit` 跳过。
+> sovena 与 MCP Cockpit 为**默认必装**，无需加参数；可用 `--no-sovena` / `--no-mcp-cockpit` 跳过。它们的监管台（`localhost:8765` / `127.0.0.1:8899`）会同时写入默认浏览器的书签栏（Chromium/Chrome/Brave/Edge/Firefox，重启浏览器生效），可用 `--no-browser-bookmarks` 跳过。
 
 ## 目录结构
 
