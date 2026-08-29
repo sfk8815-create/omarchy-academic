@@ -1,6 +1,6 @@
 # Omarchy 学研版 · Omarchy Academic
 
-> 为中文科研与学术场景定制的 [Omarchy](https://omarchy.org/) 发行版配置项目——面向科研人员、大学生、大学教师。
+> 为中文科研与学术场景定制的 [Omarchy](https://omarchy.org/) 发行版配置项目——面向科研与学术环境。
 
 Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），开箱即用地提供**中文环境**与**学术软件栈**：
 
@@ -112,3 +112,5 @@ omarchy-academic/
 ```
 
 GitHub Actions 会在每次推送时自动执行 shellcheck、JSON/TOML/Lua 语法检查。
+
+想参与贡献？见 [CONTRIBUTING.md](CONTRIBUTING.md)。

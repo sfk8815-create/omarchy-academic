@@ -1,6 +1,8 @@
 # Omarchy Academic (学研版)
 
-A customization layer on top of [Omarchy](https://omarchy.org/) 4.0.1 that turns a stock Omarchy install into a **Chinese-first academic/research environment** for researchers, university students, and teachers.
+A customization layer on top of [Omarchy](https://omarchy.org/) 4.0.1 that turns a stock Omarchy install into a **Chinese-first research and academic environment**.
+
+Want to contribute? See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Highlights
 
