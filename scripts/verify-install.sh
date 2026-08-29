@@ -131,9 +131,9 @@ configs=(
 
 for rel in "${configs[@]}"; do
   if [[ -f "$HOME/.config/$rel" ]]; then
-    ok "~/.config/$rel"
+    ok "$HOME/.config/$rel"
   else
-    bad "~/.config/$rel 缺失"
+    bad "$HOME/.config/$rel 缺失"
   fi
 done
 
