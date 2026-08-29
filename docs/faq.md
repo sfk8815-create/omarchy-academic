@@ -132,3 +132,27 @@ DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/openscience/install.sh
 ### 仓库里会不会泄露我的数据
 
 不会。仓库只包含可公开配置与脚本；Rime 个人词库（`custom_phrase.txt`）、API 配置、代理真实端口、浏览器/聊天数据都不在仓库中，`.gitignore` 也做了拦截。
+
+## 干净 VM / 无头环境
+
+### 在全新 Omarchy VM 里跑模块时报 "omarchy-shell is not responding"
+
+Omarchy 的插件命令（`omarchy plugin clone/add`、zh-ui 汉化同步）通过 `qs ipc` 与正在运行的 Omarchy Shell 通信：
+
+1. 非登录会话（SSH/TTY）缺 `OMARCHY_PATH`，导致 `omarchy-plugin-catalog` 找不到 `/shell/plugins`。先 `export OMARCHY_PATH=/usr/share/omarchy`（或写入 `/etc/environment`）。
+2. 插件克隆需要桌面会话环境变量：`WAYLAND_DISPLAY`、`XDG_RUNTIME_DIR`、`HYPRLAND_INSTANCE_SIGNATURE`（可在运行中的 Hyprland/quickshell 进程的 `/proc/<pid>/environ` 里取）。
+3. TCG 软件模拟（无 KVM）下 Shell 响应慢，默认 2 秒 IPC 超时不够：`export OMARCHY_SHELL_IPC_TIMEOUT=60s`。
+
+最稳妥的方式是**登录桌面会话后**再运行 `install.sh`（与真实使用一致）。
+
+### zh-ui 汉化在全新 4.0.1 上跳过部分插件
+
+上游 `omarchy-zh-cn` 硬编码了 22 个内置插件名，但 Omarchy 4.x 不同小版本的插件集有增删（如 4.0.1 已无 `omarchy.audio`）。学研版已对上游脚本打补丁：按当前版本实际插件目录**过滤不存在的插件**、zh-sync 缺失插件改为警告跳过，剩余插件正常克隆。
+
+### cn-mirrors 在 VM/沙箱里同步 archlinuxcn 失败
+
+`setup-cn-mirrors.sh` 会先探测可达镜像（tuna→ustc→aliyun）再写 mirrorlist，并追加 `[archlinuxcn]`。若 VM 的 NAT 到国内镜像或 `pkgs.omarchy.org` 超时，`pacman -Sy` 一步会失败——这是网络环境问题，不是脚本问题；换用可直连国外源的网络后重跑即可。
+
+### VM 验收记录
+
+干净 Omarchy 4.0.1 虚拟机（QEMU TCG，无人值守 cidata 安装）全流程验证记录见 [images/vm-desktop.png](images/vm-desktop.png)（顶栏农历日历与中文界面渲染正常）。

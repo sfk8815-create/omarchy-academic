@@ -10,8 +10,12 @@ SHELL_JSON="$HOME/.config/omarchy/shell.json"
 command -v omarchy >/dev/null 2>&1 || { echo "[错误] 需要 Omarchy 环境" >&2; exit 1; }
 command -v jq >/dev/null 2>&1 || { echo "[错误] 需要 jq" >&2; exit 1; }
 
-# 1. 安装插件（不自动启用，布局由本脚本接管）
-omarchy plugin add "$PLUGIN_URL" --yes
+# 1. 安装插件（不自动启用，布局由本脚本接管；已存在则跳过，避免重复克隆网络失败）
+if [[ ! -d "$HOME/.config/omarchy/plugins/$PLUGIN_ID" ]]; then
+  omarchy plugin add "$PLUGIN_URL" --yes
+else
+  echo "插件已存在，跳过克隆：$PLUGIN_ID"
+fi
 
 # 2. 备份并在 shell.json 中用农历日历替换内置时钟
 if [[ -f "$SHELL_JSON" ]]; then
