@@ -1,0 +1,11 @@
+[Unit]
+Description=Power off unused NVIDIA discrete GPU (MacBookPro11,3)
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/gpu-off.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

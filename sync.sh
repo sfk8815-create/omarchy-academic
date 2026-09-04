@@ -14,6 +14,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PAIRS=(
   "config/fontconfig/fonts.conf|$HOME/.config/fontconfig/fonts.conf"
   "config/fcitx5/profile|$HOME/.config/fcitx5/profile"
+  "config/fcitx5/conf/classicui.conf|$HOME/.config/fcitx5/conf/classicui.conf"
   "config/hypr/hyprland.lua|$HOME/.config/hypr/hyprland.lua"
   "config/omarchy/shell.json|$HOME/.config/omarchy/shell.json"
   "config/omarchy/shell.toml|$HOME/.config/omarchy/shell.toml"

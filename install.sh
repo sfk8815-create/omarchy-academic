@@ -7,6 +7,7 @@
 #   ./install.sh --with-apps --with-academic
 #   ./install.sh --with-zh-ui --with-lunar --with-cn-mirrors
 #   ./install.sh --with-desktop
+#   ./install.sh --with-macbook-nvidia-off     # 仅 MacBookPro11,3
 #   ./install.sh --no-sovena --no-mcp-cockpit     # 跳过默认必装的文献流/MCP 网关
 #   ./install.sh --no-browser-bookmarks           # 跳过浏览器书签（Sovena/MCP 管理页）
 #   ./install.sh --core-only                      # 只装核心中文化（含 Rime/终端/字体）
@@ -32,6 +33,7 @@ WITH_ZH_UI=0
 WITH_LUNAR=0
 WITH_CN_MIRRORS=0
 WITH_DESKTOP=0
+WITH_MACBOOK_NVIDIA_OFF=0
 DO_SOVENA=1
 DO_MCP=1
 DO_BOOKMARKS=1
@@ -72,6 +74,7 @@ while [[ $# -gt 0 ]]; do
     --with-lunar)    WITH_LUNAR=1 ;;
     --with-cn-mirrors) WITH_CN_MIRRORS=1 ;;
     --with-desktop)  WITH_DESKTOP=1 ;;
+    --with-macbook-nvidia-off) WITH_MACBOOK_NVIDIA_OFF=1 ;;
     --no-sovena)     DO_SOVENA=0 ;;
     --no-mcp-cockpit) DO_MCP=0 ;;
     --no-browser-bookmarks) DO_BOOKMARKS=0 ;;
@@ -95,6 +98,7 @@ if (( CORE_ONLY )); then
   WITH_LUNAR=0
   WITH_CN_MIRRORS=0
   WITH_DESKTOP=0
+  WITH_MACBOOK_NVIDIA_OFF=0
   DO_SOVENA=0
   DO_MCP=0
   DO_BOOKMARKS=0
@@ -225,6 +229,7 @@ if (( DO_CONFIG )); then
   run mkdir -p "$BACKUP_DIR"
   deploy "config/fontconfig/fonts.conf" "$HOME/.config/fontconfig/fonts.conf"
   deploy "config/fcitx5/profile" "$HOME/.config/fcitx5/profile"
+  deploy "config/fcitx5/conf/classicui.conf" "$HOME/.config/fcitx5/conf/classicui.conf"
   deploy "config/hypr/hyprland.lua" "$HOME/.config/hypr/hyprland.lua"
   deploy "config/omarchy/shell.json" "$HOME/.config/omarchy/shell.json"
   deploy "config/omarchy/shell.toml" "$HOME/.config/omarchy/shell.toml"
@@ -293,6 +298,14 @@ if (( WITH_HID_APPLE )); then
 elif (( ! ASSUME_YES )) && ask "安装 Apple 键盘 fn 键模块？（仅 Apple 键盘）" "n"; then
   section "硬件模块：Apple 键盘 fn 键"
   run "$REPO_DIR/hardware/hid_apple/install.sh"
+fi
+
+if (( WITH_MACBOOK_NVIDIA_OFF )); then
+  section "硬件模块：MacBookPro11,3 NVIDIA 独显断电"
+  run "$REPO_DIR/hardware/macbook-nvidia-off/install.sh"
+elif (( ! ASSUME_YES )) && ask "安装 MacBookPro11,3 NVIDIA 独显断电模块？（仅 2013 末/2014 中 15 英寸双显卡 MacBook Pro）" "n"; then
+  section "硬件模块：MacBookPro11,3 NVIDIA 独显断电"
+  run "$REPO_DIR/hardware/macbook-nvidia-off/install.sh"
 fi
 
 # ---------- 6b. 第三方社区模块（来源与许可见 docs/resources.md） ----------

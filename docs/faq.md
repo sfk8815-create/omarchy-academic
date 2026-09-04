@@ -18,6 +18,17 @@ fcitx5-configtool                  # 输入法列表里是否有 rime
 
 rime-ice 自带双拼（小鹤/微软/搜狗等）、五笔、注音等方案。在 rime 菜单（`Ctrl+` 或托盘图标）里选择方案，或编辑 `~/.local/share/fcitx5/rime/default.yaml` 的 schema 列表后重新部署。
 
+### 候选词窗口太小 / 想调大
+
+学研版通过 `~/.config/fcitx5/conf/classicui.conf` 把 Classic UI 的字体设为 `Sans 12`（fcitx5 默认 `Sans 10`），候选词更大更清晰。想再调大（或调回默认）：
+
+```bash
+sed -i 's/Font="Sans 12"/Font="Sans 14"/' ~/.config/fcitx5/conf/classicui.conf
+fcitx5-remote -r
+```
+
+修改即时生效，无需重新登录。该文件同时收录在仓库 `config/fcitx5/conf/classicui.conf`，可用 `./sync.sh pull` 拉回维护。
+
 ## 字体与终端
 
 ### 终端里中文是方块
@@ -118,6 +129,10 @@ DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/openscience/install.sh
 ### 不是 MacBook / 没有 Apple 键盘能装吗
 
 可以。`install.sh` 默认只装核心中文化内容；Apple 键盘模块在询问时选“n”即可。
+
+### 不是 MacBookPro11,3 能装 NVIDIA 独显断电模块吗
+
+不能。该模块仅适配 MacBook Pro 15 英寸 Retina 双显卡版（Late 2013 / Mid 2014，DMI 机型 `MacBookPro11,3`，Intel Iris Pro + NVIDIA GT 750M）。`install.sh` 在交互询问时会说明适用机型，模块自身的 `install.sh` 也会读取 `/sys/class/dmi/id/product_name` 校验机型，不符直接拒绝并报当前机型，不会写入任何文件。若你的机器是其他双显卡 MacBook（如 `MacBookPro11,2`），暂时不要手动绕过校验，等待仓库后续验证适配。
 
 ### 4K 屏字太小 / 太大
 

@@ -120,6 +120,7 @@ section "配置部署"
 configs=(
   "fontconfig/fonts.conf"
   "fcitx5/profile"
+  "fcitx5/conf/classicui.conf"
   "hypr/hyprland.lua"
   "omarchy/shell.json"
   "omarchy/shell.toml"
@@ -136,6 +137,12 @@ for rel in "${configs[@]}"; do
     bad "$HOME/.config/$rel 缺失"
   fi
 done
+
+if rg -q '^Font="Sans 12"$' "$HOME/.config/fcitx5/conf/classicui.conf" 2>/dev/null; then
+  ok "fcitx5 候选词窗口字号 Sans 12"
+else
+  bad "classicui.conf 未设置候选词字号 Sans 12"
+fi
 
 if rg -q 'GTK_IM_MODULE.*fcitx' "$HOME/.config/hypr/hyprland.lua" 2>/dev/null; then
   ok "Hyprland 已注入 fcitx 环境变量"

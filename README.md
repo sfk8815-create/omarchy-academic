@@ -5,12 +5,12 @@
 Omarchy 学研版基于 Omarchy 4.0.1（Arch Linux + Hyprland + Quickshell），开箱即用地提供**中文环境**与**学术软件栈**：
 
 - 中文系统区域（`zh_CN.UTF-8` + 中国时区）
-- fcitx5 + Rime 输入法（雾凇拼音 rime-ice，含双拼等方案，`,` `.` 翻页）
+- fcitx5 + Rime 输入法（雾凇拼音 rime-ice，含双拼等方案，`,` `.` 翻页；候选词窗口调大，更清晰易读）
 - 中文字体回退：JetBrainsMono 等拉丁字体缺字时自动落到思源黑体（Noto Sans CJK SC）
 - 四个终端（alacritty / foot / kitty / ghostty）的中文渲染，foot 中文字号单独放大 1.2 倍
 - 学术软件栈：Zotero、Obsidian、Zettlr、Xournal++、LibreOffice/WPS、Tesseract 中文 OCR、Pandoc、TeX Live
 - 中文办公应用（可选）：微信、钉钉、飞书、WPS Office
-- 硬件模块（可选）：Apple 键盘 fn 键、HiDPI 缩放
+- 硬件模块（可选）：Apple 键盘 fn 键、HiDPI 缩放、MacBookPro11,3 NVIDIA 独显断电
 - 社区模块（可选）：Omarchy 界面简体中文化、状态栏农历日历、国内镜像 + archlinuxcn 仓库
 - 默认集成：sovena 文献流系统（Zotero→语义检索）+ MCP Cockpit 统一网关
 - 默认把 sovena / MCP Cockpit 管理页面加入**默认浏览器书签栏**（`--no-browser-bookmarks` 可跳过）
@@ -68,14 +68,14 @@ omarchy-academic/
 ├── packages/                # 核心 / 中文应用 / 学术软件包清单
 ├── config/                  # 增量配置（按 ~/.config 镜像）
 │   ├── fontconfig/          # CJK 字体回退
-│   ├── fcitx5/              # 输入法（默认 rime）
+│   ├── fcitx5/              # 输入法（默认 rime + Classic UI 候选词字号）
 │   ├── hypr/                # Hyprland（fcitx 环境变量）
 │   ├── omarchy/             # 状态栏与全局字号
 │   └── alacritty|foot|kitty|ghostty/   # 终端中文渲染
 ├── rime/                    # rime-ice 补丁（不包含个人词库）
 ├── scripts/                 # 区域设置、rime 安装、sudo 弹窗、健康检查
 ├── templates/               # 代理等环境变量模板
-├── hardware/                # 可选硬件模块（Apple 键盘 / HiDPI）
+├── hardware/                # 可选硬件模块（Apple 键盘 / HiDPI / MacBookPro11,3 独显断电）
 ├── modules/                 # 社区/学术模块（汉化、农历、OpenScience、sovena、MCP）
 └── docs/                    # 安装与 FAQ
 ```

@@ -18,7 +18,7 @@ cd omarchy-academic
 
 1. **核心软件包**：fcitx5 全家桶、Rime、CJK 字体（pacman）
 2. **区域设置**：启用 `zh_CN.UTF-8`，写入 `/etc/locale.conf`，设置时区（默认 Asia/Shanghai）
-3. **配置部署**：字体回退、输入法 profile、Hyprland 输入法环境、状态栏、四个终端配置；被覆盖的文件自动备份
+3. **配置部署**：字体回退、输入法 profile 与候选词窗口字号、Hyprland 输入法环境、状态栏、四个终端配置；被覆盖的文件自动备份
 4. **Rime**：从上游拉取 rime-ice 并应用补丁（`,` `.` 翻页）
 5. **小工具**：中文 sudo 密码弹窗、健康检查脚本
 6. **sovena + MCP Cockpit（默认必装）**：文献流系统与统一 MCP 网关（可用 `--no-sovena` / `--no-mcp-cockpit` 跳过）
@@ -28,6 +28,7 @@ cd omarchy-academic
    - 学术软件栈（Zotero / Obsidian / Zettlr / Xournal++ / OCR / Pandoc / TeX Live）
    - HiDPI 缩放（4K 屏）
    - Apple 键盘 fn 键
+   - MacBookPro11,3 NVIDIA 独显断电（仅 2013 末/2014 中 15 英寸双显卡 MacBook Pro）
    - 代理环境变量模板
    - Omarchy 界面简体中文化（第三方 MIT 项目）
    - 状态栏农历日历（第三方 MIT 项目）
@@ -44,6 +45,7 @@ cd omarchy-academic
 ./install.sh --with-lunar       # 农历日历（garyliu.lunar-calendar, MIT）
 ./install.sh --with-cn-mirrors  # 国内镜像 + archlinuxcn
 ./install.sh --with-desktop     # Aether 科研助手 + Open Science Desktop
+./install.sh --with-macbook-nvidia-off  # MacBookPro11,3 NVIDIA 独显断电（机型不符会自动拒绝）
 ./install.sh --no-sovena        # 跳过 sovena（默认必装）
 ./install.sh --no-mcp-cockpit   # 跳过 MCP Cockpit（默认必装）
 ./install.sh --no-browser-bookmarks  # 不写入浏览器书签（默认写入）

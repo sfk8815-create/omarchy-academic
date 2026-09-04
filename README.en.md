@@ -7,12 +7,12 @@ Want to contribute? See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Highlights
 
 - `zh_CN.UTF-8` locale + China timezone
-- fcitx5 + Rime input method with the rime-ice (雾凇拼音) scheme
+- fcitx5 + Rime input method with the rime-ice (雾凇拼音) scheme (larger candidate-window font included)
 - CJK font fallback for JetBrainsMono and Chromium/Electron apps
 - Chinese rendering in alacritty, foot, kitty, and ghostty terminals
 - Academic stack: Zotero, Obsidian, Zettlr, Xournal++, LibreOffice/WPS, Tesseract Chinese OCR, Pandoc, TeX Live
 - Optional Chinese apps: WeChat, DingTalk, Feishu, WPS Office
-- Optional hardware modules: Apple keyboard, HiDPI
+- Optional hardware modules: Apple keyboard, HiDPI, MacBookPro11,3 NVIDIA GPU power-off
 - Optional community modules: Chinese UI localization, lunar calendar, China mirrors + archlinuxcn
 - Bundled by default: sovena literature workflow + MCP Cockpit gateway
 - Optional modules: Open Science Desktop, Aether research assistant, UI localization, lunar calendar, China mirrors
