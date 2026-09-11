@@ -105,6 +105,18 @@ DOWNLOAD_PROXY=http://127.0.0.1:7897 ./modules/openscience/install.sh
 
 三者均来自 MIT 社区项目或公开镜像配置，来源见 docs/resources.md；卸载方式见 modules/ 下对应 README。
 
+### Omarchy 菜单里“应用”是空的
+
+Omarchy 4.0.3 的一个上游缺陷：主菜单靠“克隆版插件”实现汉化，而克隆菜单拿不到应用库（`appLibrary`），于是“应用”子菜单一直是空的（面板里显示“这里暂时没有内容”）。上游修复见 omacom/omarchy#11282（PR #11285）。
+
+本仓库的 zh-ui 模块安装时已给 `omarchy-zh-sync` 打了兜底补丁，装好即可用。若是升级 Omarchy 之后才出现、菜单仍然为空，手动同步一次即可：
+
+```bash
+omarchy-zh-sync
+```
+
+同步结束会自动重启 Omarchy Shell，菜单随即恢复。若输出里出现 `[zh-ui] 警告：zh-sync 结构已变化，未注入应用库兜底`，说明上游脚本改版、补丁没能注入，请在仓库提 issue。
+
 ### sovena / MCP Cockpit 是必装吗
 
 ```bash

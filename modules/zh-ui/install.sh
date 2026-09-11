@@ -83,6 +83,63 @@ else:
     print("[zh-ui] zh-sync 无需修补（结构变化或已修补）")
 PYEOF
 
+# Omarchy 4.0.3 的 manifestHasKind() 用 Array.isArray() 判断插件类型，而克隆菜单的
+# 清单要经过 Instantiator 模型才送到面板加载器，kinds 数组在那里变成 QV4 序列对象，
+# 判断因此为假：克隆菜单拿不到 appLibrary，“应用” 子菜单一直是空的
+# （上游 issue: omacom/omarchy#11282，PR: #11285）。
+# 上游修好前，让 zh-sync 给克隆菜单自带一份应用库兜底：把系统自带的 AppLibrary.qml
+# 拷进克隆，并把 Menu.qml 的 appLibrary 绑定改成「宿主有就用宿主，没有就用自带的」。
+python3 - "$DEST/bin/omarchy-zh-sync" <<'PYEOF'
+import sys
+
+path = sys.argv[1]
+with open(path, encoding="utf-8") as f:
+    src = f.read()
+
+menu_start = '      if (sourceId === "omarchy.menu" && path.basename(file) === "Menu.qml") {'
+closing = "      }" + chr(10)
+menu_patch = """        // Omarchy 4.0.3 只给第一方菜单注入 shell.appLibrary：克隆菜单的清单要经过
+        // Instantiator 模型才到达面板加载器，kinds 数组在那里变成 QV4 序列，
+        // manifestHasKind() 因此返回 false，菜单拿到的 appLibrary 是 null，
+        // “应用” 子菜单（provider: apps）就一直是空的。上游：omacom/omarchy#11282。
+        // 兜底做法是让克隆自带一份同样的应用库，宿主没给时用它。
+        const appLibraryBinding = "  readonly property var appLibrary: root.shell ? root.shell.appLibrary : null";
+        const appLibraryReplacement = [
+          "  // 宿主只给第一方菜单注入 appLibrary（omacom/omarchy#11282），克隆菜单拿到的是",
+          "  // null，“应用” 子菜单会一直是空的。这里自带一份同样的应用库兜底。",
+          "  LocalAppLibrary { id: localAppLibrary }",
+          "  readonly property var appLibrary: root.shell && root.shell.appLibrary ? root.shell.appLibrary : localAppLibrary"
+        ].join("\\n");
+        if (!after.includes(appLibraryBinding)) throw new Error("菜单插件结构已变化：appLibrary 绑定");
+        after = after.replace(appLibraryBinding, appLibraryReplacement);
+"""
+
+copy_anchor = "    const backup = `${targetDir}.zh-old-${process.pid}`;"
+copy_patch = """    if (sourceId === "omarchy.menu") {
+      // Menu.qml 里插入的 LocalAppLibrary 兜底要求应用库与它同目录。每次同步都从
+      // 当前安装的 Omarchy 拷贝一份，克隆就始终跟系统版本一致。
+      const servicesDir = "/usr/share/omarchy/shell/services";
+      fs.copyFileSync(path.join(servicesDir, "AppLibrary.qml"), path.join(stage, "LocalAppLibrary.qml"));
+      fs.copyFileSync(path.join(servicesDir, "AppSearch.js"), path.join(stage, "AppSearch.js"));
+    }
+
+"""
+
+if "LocalAppLibrary" in src:
+    print("[zh-ui] zh-sync 已带应用库兜底，无需修补")
+elif src.count(menu_start) != 1 or src.count(copy_anchor) != 1:
+    print("[zh-ui] 警告：zh-sync 结构已变化，未注入应用库兜底（克隆菜单的“应用”子菜单会为空）")
+else:
+    start = src.index(menu_start)
+    end = src.index(chr(10) + closing, start) + len(chr(10) + closing)
+    block = src[start:end]
+    src = src[:start] + block[: -len(closing)] + menu_patch + closing + src[end:]
+    src = src.replace(copy_anchor, copy_patch + copy_anchor, 1)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(src)
+    print("[zh-ui] 已修补 zh-sync：克隆菜单自带应用库兜底（应用子菜单不再为空）")
+PYEOF
+
 ./install.sh --dry-run
 ./install.sh
 
